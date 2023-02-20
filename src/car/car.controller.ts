@@ -16,12 +16,12 @@ export class CarController {
   }
 
   @Get(':id')
-  public getCarById(@Param('id') id: number) {
+  public async getCarById(@Param('id') id: number) {
     return this.carService.getCarById(id);
   }
 
   @Delete(':id')
-  public deleteCarById(@Param('id') id: number) {
+  public async deleteCarById(@Param('id') id: number) {
     return this.carService.deleteCarById(id);
   }
 }

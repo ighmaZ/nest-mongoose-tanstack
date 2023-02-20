@@ -11,21 +11,27 @@ export class CarService {
   public postCar(car) {
     return this.cars.push(car);
   }
-  public getCarById(id: number) {
-    const car = this.cars.find((car) => car.id === id);
+  public getCarById(id: number): Promise<any> {
+    const carId = Number(id);
+    return new Promise((resolve) => {
+      const car = this.cars.find((car) => car.id === carId);
 
-    if (!car) {
-      // throw an error if not found
-      throw new HttpException('could not find ', 404);
-    }
-    return car;
+      if (!car) {
+        // throw an error if not found
+        throw new HttpException('could not find ', 404);
+      }
+      return resolve(car);
+    });
   }
-  public deleteCarById(id: number) {
-    const index = this.cars.findIndex((car) => car.id === id);
-    if (index === -1) {
-      throw new HttpException('could not find ', 404);
-    }
-    this.cars.splice(index, 1);
-    return this.cars;
+  public deleteCarById(id: number): Promise<any> {
+    const carId = Number(id);
+    return new Promise((resolve) => {
+      const index = this.cars.findIndex((car) => car.id === carId);
+      if (index === -1) {
+        throw new HttpException('could not find ', 404);
+      }
+      this.cars.splice(index, 1);
+      return resolve(this.cars);
+    });
   }
 }
